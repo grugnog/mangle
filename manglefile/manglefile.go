@@ -27,9 +27,10 @@ var profile = flag.Bool("profile", false, "If set, performance profiling data wi
 
 func main() {
 	flag.Usage = func() {
-		fmt.Fprintf(os.Stderr, "Usage of %s:\n", os.Args[0])
+		fmt.Fprintln(os.Stderr, "Simple command line text sanitization / data masking tool.")
 		fmt.Fprintln(os.Stderr, "Accepts input on stdin and output on stdout.")
 		fmt.Fprintln(os.Stderr, "Example: echo \"Hello world!\" | manglefile -corpus=corpus.txt -secret=replace-with-a-secure-passphrase\n")
+		fmt.Fprintf(os.Stderr, "Usage of %s:\n", os.Args[0])
 		flag.PrintDefaults()
 	}
 
