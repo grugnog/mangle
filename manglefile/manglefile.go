@@ -13,9 +13,9 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/grugnog/mangle"
 	"io"
 	"log"
-	"mangle"
 	"os"
 	"runtime/pprof"
 )
