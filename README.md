@@ -1,6 +1,6 @@
 # mangle
 --
-    import "mangle"
+    import "github.com/grugnog/mangle"
 
 Sanitization / data masking library for Go (golang).
 
@@ -19,6 +19,8 @@ Install mangle:
     go get github.com/grugnog/mangle
 
 Try the command line tool:
+
+    go get github.com/grugnog/mangle/manglefile
 
     # Generate a list of words using your system dictionary and download "War and Peace" for testing.
     aspell -d en dump master | aspell -l en expand > corpus.txt

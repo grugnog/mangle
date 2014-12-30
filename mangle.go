@@ -14,6 +14,8 @@ Install mangle:
 
 Try the command line tool:
 
+		go get github.com/grugnog/mangle/manglefile
+
 		# Generate a list of words using your system dictionary and download "War and Peace" for testing.
 		aspell -d en dump master | aspell -l en expand > corpus.txt
 		wget http://www.gutenberg.org/cache/epub/2600/pg2600.txt
