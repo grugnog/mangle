@@ -2,8 +2,8 @@ package mangle_test
 
 import (
 	"fmt"
+	"github.com/grugnog/mangle"
 	"log"
-	"mangle"
 )
 
 // Reads a corpus from a file, initializes a Mangle, runs a string through it

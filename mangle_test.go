@@ -3,7 +3,7 @@ package mangle_test
 import (
 	"bufio"
 	"bytes"
-	"mangle"
+	"github.com/grugnog/mangle"
 	"strings"
 	"testing"
 )
