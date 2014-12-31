@@ -6,7 +6,7 @@ Purpose
 
 This library provides functionality to sanitize text and HTML data. This can be integrated into tools that export or manipulate databases/files so that confidential data is not exposed to staging, development or testing systems.
 
-Getting started
+Getting Started
 
 Install mangle:
 

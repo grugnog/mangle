@@ -2,7 +2,7 @@
 --
     import "github.com/grugnog/mangle"
 
-Sanitization / data masking library for Go (golang).
+Package mangle is a sanitization / data masking library for Go (golang).
 
 
 ### Purpose
@@ -12,7 +12,7 @@ integrated into tools that export or manipulate databases/files so that
 confidential data is not exposed to staging, development or testing systems.
 
 
-Getting started
+### Getting Started
 
 Install mangle:
 
@@ -58,7 +58,7 @@ punctuation, title case and all caps, HTML tags and attributes are maintained.
 ```go
 func BuildCorpus(scanner *bufio.Scanner) ([255][]string, error)
 ```
-ReadCorpus is a helper function that reads a bufio.Scanner of words and returns
+BuildCorpus is a helper function that reads a bufio.Scanner of words and returns
 an array of word lengths, each containing an array of words of that length.
 
 #### func  ReadCorpus
@@ -83,7 +83,7 @@ type Mangle struct {
 }
 ```
 
-Configures a Mangle prior to use.
+Mangle is used to configure an instance prior to mangling.
 
 #### func (Mangle) MangleHTML
 
