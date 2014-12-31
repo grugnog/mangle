@@ -13,7 +13,7 @@ func Example() {
 	if err != nil {
 		log.Fatalf("Corpus read error: %s", err)
 	}
-	mangler := mangle.Mangle{corpus, "replace-with-a-secure-passphrase"}
+	mangler := mangle.Mangle{Corpus: corpus, Secret: "replace-with-a-secure-passphrase"}
 	out := mangler.MangleString("Hello world!")
 	fmt.Println(out)
 }

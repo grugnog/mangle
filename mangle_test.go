@@ -40,7 +40,7 @@ var tests = []struct {
 
 // Tests string based interface.
 func TestStrings(t *testing.T) {
-	mangler := mangle.Mangle{corpus, salta}
+	mangler := mangle.Mangle{Corpus: corpus, Secret: salta}
 	for _, tt := range tests {
 		out := mangler.MangleString(tt.in)
 		if out != tt.out {
@@ -51,7 +51,7 @@ func TestStrings(t *testing.T) {
 
 // Tests IO based interface.
 func TestIO(t *testing.T) {
-	mangler := mangle.Mangle{corpus, salta}
+	mangler := mangle.Mangle{Corpus: corpus, Secret: salta}
 	for _, tt := range tests {
 		r := strings.NewReader(tt.in)
 		w := new(bytes.Buffer)
@@ -68,7 +68,7 @@ func TestIO(t *testing.T) {
 
 // Tests HTML based interface with basic strings.
 func TestHTMLBasic(t *testing.T) {
-	mangler := mangle.Mangle{corpus, salta}
+	mangler := mangle.Mangle{Corpus: corpus, Secret: salta}
 	for _, tt := range tests {
 		r := strings.NewReader(tt.in)
 		w := new(bytes.Buffer)
@@ -102,7 +102,7 @@ var markuptests = []struct {
 
 // Tests HTML based interface with markup.
 func TestHTMLMarkup(t *testing.T) {
-	mangler := mangle.Mangle{corpus, salta}
+	mangler := mangle.Mangle{Corpus: corpus, Secret: salta}
 	for _, tt := range markuptests {
 		r := strings.NewReader(tt.in)
 		w := new(bytes.Buffer)
@@ -122,12 +122,12 @@ func TestSalts(t *testing.T) {
 	in := "The quick brown fox jumps over the lazy dog"
 	correcta := "Iii ooooo ooooo iii ooooo jjjj iii llll hhh"
 	correctb := "Ggg nnnnn nnnnn hhh mmmmm jjjj ggg llll iii"
-	manglera := mangle.Mangle{corpus, salta}
+	manglera := mangle.Mangle{Corpus: corpus, Secret: salta}
 	outa := manglera.MangleString(in)
 	if outa != correcta {
 		t.Errorf("MangleString(%s) => %q, want %q", in, outa, correcta)
 	}
-	manglerb := mangle.Mangle{corpus, saltb}
+	manglerb := mangle.Mangle{Corpus: corpus, Secret: saltb}
 	outb := manglerb.MangleString(in)
 	if outb != correctb {
 		t.Errorf("MangleString(%s) => %q, want %q", in, outb, correctb)

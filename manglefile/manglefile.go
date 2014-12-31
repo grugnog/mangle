@@ -29,7 +29,8 @@ func main() {
 	flag.Usage = func() {
 		fmt.Fprintln(os.Stderr, "Simple command line text sanitization / data masking tool.")
 		fmt.Fprintln(os.Stderr, "Accepts input on stdin and output on stdout.")
-		fmt.Fprintln(os.Stderr, "Example: echo \"Hello world!\" | manglefile -corpus=corpus.txt -secret=replace-with-a-secure-passphrase\n")
+		fmt.Fprintln(os.Stderr, "Example: echo \"Hello world!\" | manglefile -corpus=corpus.txt -secret=replace-with-a-secure-passphrase")
+		fmt.Fprintln(os.Stderr)
 		fmt.Fprintf(os.Stderr, "Usage of %s:\n", os.Args[0])
 		flag.PrintDefaults()
 	}
@@ -49,7 +50,7 @@ func main() {
 	if *profile == true {
 		profile, err := os.Create("profile")
 		if err != nil {
-			log.Fatalf("Unable to open profile file.", err)
+			log.Fatalf("Unable to open profile file: %s", err)
 		}
 		pprof.StartCPUProfile(profile)
 	}
@@ -63,14 +64,14 @@ func main() {
 	// Open stdin and stdout and mangle.
 	w := io.Writer(os.Stdout)
 	r := io.Reader(os.Stdin)
-	mangler := mangle.Mangle{corpus, *secret}
+	mangler := mangle.Mangle{Corpus: corpus, Secret: *secret}
 	if *filetype == "html" {
 		err = mangler.MangleHTML(r, w)
 	} else {
 		err = mangler.MangleIO(r, w)
 	}
 	if err != nil {
-		log.Fatalf("IO error: %s", err.Error())
+		log.Fatalf("IO error: %s", err)
 	}
 
 	// Complete profiling.
