@@ -1,5 +1,5 @@
 /*
-Sanitization / data masking library for Go (golang).
+Package mangle is a sanitization / data masking library for Go (golang).
 
 
 Purpose
@@ -52,7 +52,7 @@ import (
 	"unicode"
 )
 
-// Configures a Mangle prior to use.
+// Mangle is used to configure an instance prior to mangling.
 type Mangle struct {
 	// Corpus of words to use as replacements. An array of word lengths, each
 	// containing an array of words of that length.
@@ -77,7 +77,7 @@ func ReadCorpus(filepath string) ([255][]string, error) {
 	return corpus, err
 }
 
-// ReadCorpus is a helper function that reads a bufio.Scanner of words and
+// BuildCorpus is a helper function that reads a bufio.Scanner of words and
 // returns an array of word lengths, each containing an array of words of that
 // length.
 func BuildCorpus(scanner *bufio.Scanner) ([255][]string, error) {
@@ -189,13 +189,13 @@ func (m Mangle) mangleHTMLParser(r io.Reader, w io.Writer) error {
 func (m Mangle) mangleWord(word []rune) string {
 	var crc float64
 	var pos uint32
-	var replacement_runes []rune
+	var replacementRunes []rune
 	const MaxUint32 = 1<<32 - 1
 	replacement := ""
 
 	pad := 0
-	word_len := len(word)
-	if word_len > 0 {
+	wordLen := len(word)
+	if wordLen > 0 {
 		// SHA256 the string, together with the secret.
 		hash := sha256.New()
 		hash.Write([]byte(string(word)))
@@ -203,22 +203,22 @@ func (m Mangle) mangleWord(word []rune) string {
 		// Use crc32 to map the hash to a conveniently sized number.
 		crc = float64(crc32.ChecksumIEEE([]byte(hash.Sum(nil))))
 		// If we can't find a sufficiently long string, look for a shorter one.
-		for len(m.Corpus[word_len]) == 0 && word_len != 0 {
-			word_len--
+		for len(m.Corpus[wordLen]) == 0 && wordLen != 0 {
+			wordLen--
 			pad++
 		}
-		if word_len != 0 {
+		if wordLen != 0 {
 			// Map the CRC value onto the available corpus words.
-			pos = uint32((crc / MaxUint32) * float64(len(m.Corpus[word_len])))
+			pos = uint32((crc / MaxUint32) * float64(len(m.Corpus[wordLen])))
 			// Select the word from the corpus and pad it if it was shorter than the original.
-			replacement = m.Corpus[word_len][pos] + strings.Repeat(" ", pad)
+			replacement = m.Corpus[wordLen][pos] + strings.Repeat(" ", pad)
 			// Capitalize as per the original string.
-			if word_len > 0 && unicode.IsUpper(word[0]) {
-				if word_len > 1 && unicode.IsUpper(word[1]) {
+			if wordLen > 0 && unicode.IsUpper(word[0]) {
+				if wordLen > 1 && unicode.IsUpper(word[1]) {
 					replacement = strings.ToUpper(replacement)
 				} else {
-					replacement_runes = []rune(replacement)
-					replacement = strings.ToUpper(string(replacement_runes[0])) + string(replacement_runes[1:])
+					replacementRunes = []rune(replacement)
+					replacement = strings.ToUpper(string(replacementRunes[0])) + string(replacementRunes[1:])
 				}
 			}
 		}
