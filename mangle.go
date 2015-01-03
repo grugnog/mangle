@@ -202,8 +202,9 @@ func (m Mangle) mangleWord(word []rune) string {
 		hash.Write([]byte(m.Secret))
 		// Use crc32 to map the hash to a conveniently sized number.
 		crc = float64(crc32.ChecksumIEEE([]byte(hash.Sum(nil))))
-		// If we can't find a sufficiently long string, look for a shorter one.
-		for len(m.Corpus[wordLen]) == 0 && wordLen != 0 {
+		// If the word is too long, or we can't find a sufficiently long word in the
+		// corpus, look for a shorter one and adjust the padding.
+		for wordLen >= 255 || (len(m.Corpus[wordLen]) == 0 && wordLen != 0) {
 			wordLen--
 			pad++
 		}
