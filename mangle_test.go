@@ -31,6 +31,7 @@ var tests = []struct {
 	{"So funny, ROFL.", "Dd ooooo, KKKK."},
 	{"+1 (123) 456-7890", "+c (iii) iii-jjjj"},
 	{"Antidisestablishmentarianism", "Sssssss                     "},
+	{"00123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzÇüéâäàåçêëèïîìÄÅÉæÆôöòûùÿÖÜøØƒáíóúñÑðÐÊËÈıÍÎÏÌÓßÔÒõÕµþÞÚÛÙýÝ123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzÇüéâäàåçêëèïîìÄÅÉæÆôöòûùÿÖÜøØƒáíóúñÑðÐÊËÈıÍÎÏÌÓßÔÒõÕµþÞÚÛÙýÝ", "uuuuuuu                                                                                                                                                                                                                                             "},
 	// Unicode tests.
 	{"是一个专为语文教学而设计的电脑软件。在当今这个电脑时代，＂电脑辅助教学＂", "uuuuuuu          。ttttttt  ，＂rrrrrr＂"},
 	{"よばれる　－　呼ばれる りゅうは、ごく　－　理由は、", "kkkk　－　llll jjjj、dd　－　ggg、"},
